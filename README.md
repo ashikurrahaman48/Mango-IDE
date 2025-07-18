@@ -1,165 +1,95 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .header {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        h2 {
-            color: #ff6b81;
-            border-bottom: 2px solid #ff6b81;
-            padding-bottom: 5px;
-            margin-top: 25px;
-        }
-        .logo {
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-        .mango {
-            color: #fff;
-        }
-        .ide {
-            color: #333;
-        }
-        code {
-            background-color: #f0f0f0;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-        pre {
-            background-color: #f0f0f0;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        .feature-list {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .feature {
-            margin-bottom: 15px;
-            padding-left: 20px;
-            border-left: 3px solid #ff9a9e;
-        }
-        .feature-title {
-            font-weight: bold;
-            color: #ff6b81;
-        }
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        .version {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .license {
-            background-color: #2196F3;
-            color: white;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #777;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="logo">
-            <span class="mango">Mango</span> <>&nbsp;<span class="ide">Ide</span>
-        </div>
-        <p>Coding made sweet and simple</p>
-        <div>
-            <span class="badge version">v1.0.0</span>
-            <span class="badge license">MIT License</span>
-        </div>
-    </div>
+<p align='center'>
+  <img width='1280px' height='300px' src='https://raw.githubusercontent.com/BdStudioorg/Mango-Android-IDE/refs/heads/main/logo-dark.webp#gh-dark-mode-only' >
+  <img width='1280px' height='300px' src='https://raw.githubusercontent.com/BdStudioorg/Mango-Android-IDE/refs/heads/main/logo-light.webp#gh-light-mode-only'>
+</p>
 
-    <h2>📌 Project Description</h2>
-    <p>Mango <> Ide is a lightweight, mobile-friendly coding environment designed to make programming accessible and enjoyable. With its clean interface and intuitive design, it's perfect for quick coding sessions on the go.</p>
+<div align='center'>
+  <a href='https://play.google.com/store/apps/details?id=com.tyron.code&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+    <img width='170px%' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/>
+  </a>
+</div>
 
-    <h2>✨ Features</h2>
-    <div class="feature-list">
-        <div class="feature">
-            <div class="feature-title">Mobile-First Design</div>
-            <p>Fully responsive interface that works beautifully on all device sizes.</p>
-        </div>
-        <div class="feature">
-            <div class="feature-title">Sweet Splash Screen</div>
-            <p>Engaging animated splash screen with smooth transitions.</p>
-        </div>
-        <div class="feature">
-            <div class="feature-title">Lightweight</div>
-            <p>No heavy frameworks - pure HTML, CSS, and JavaScript.</p>
-        </div>
-        <div class="feature">
-            <div class="feature-title">Customizable</div>
-            <p>Easy to modify colors, animations, and content to match your brand.</p>
-        </div>
-    </div>
+<div align='center'>
+  
+[![stability-alpha](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#alpha)
+[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da)](https://discord.gg/pffnyE6prs)
 
-    <h2>🚀 Getting Started</h2>
-    <h3>Installation</h3>
-    <p>Simply include the HTML file in your project:</p>
-    <pre><code>&lt;link rel="stylesheet" href="splash.css"&gt;
-&lt;script src="splash.js"&gt;&lt;/script&gt;</code></pre>
+  <h2>A javac APIs-based code editor that supports building Android apps.</h2>
 
-    <h3>Usage</h3>
-    <p>Add the splash screen HTML to your document:</p>
-    <pre><code>&lt;div class="splash-screen"&gt;
-    &lt;div class="logo-container"&gt;
-        &lt;div class="mango"&gt;Mango&lt;/div&gt;
-        &lt;div class="separator"&gt;&lt;&gt;&lt;/div&gt;
-        &lt;div class="ide"&gt;Ide&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="tagline"&gt;Coding made sweet&lt;/div&gt;
-    &lt;div class="loading-bar"&gt;
-        &lt;div class="progress"&gt;&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+</div>
 
-    <h2>🛠 Customization</h2>
-    <p>You can easily customize the splash screen by modifying these CSS variables:</p>
-    <pre><code>:root {
-    --primary-color: #ff9a9e;
-    --secondary-color: #fad0c4;
-    --text-color: #333;
-    --highlight-color: #ff6b81;
-}</code></pre>
+<img style="width: 45%; height: 100%; padding-right: 10px" src="https://raw.githubusercontent.com/KrishnaVyshak/CodeAssist/main/.github/resources/screenshot/screenshots_title_light.png#gh-light-mode-only">
+<img style="width: 45%; height: 100%; padding-right: 10px" src="https://raw.githubusercontent.com/KrishnaVyshak/CodeAssist/main/.github/resources/screenshot/screenshots_title_dark.png#gh-dark-mode-only">
 
-    <h2>📜 License</h2>
-    <p>This project is licensed under the MIT License - see the <a href="LICENSE.md">LICENSE.md</a> file for details.</p>
+<img style="width: 25%; height: 80%; padding-right: 10px" src=".github/resources/screenshot/screenshot1.webp?raw=true"><img style="width: 25%; height: 80%" src=".github/resources/screenshot/screenshot2.webp?raw=true"><img style="width: 25%; height: 80%" src=".github/resources/screenshot/screenshot3.webp?raw=true"><img style="width: 25%; height: 80%" src=".github/resources/screenshot/screenshot4.webp?raw=true">
 
-    <div class="footer">
-        <p>© 2023 Mango Ide Team | Made with ❤️ for developers</p>
-    </div>
-</body>
-</html>
+<img style="width: 45%; height: 100%; padding-right: 10px" src=".github/resources/images/features_title_dark.png?raw=true#gh-light-mode-only">
+<img style="width: 45%; height: 100%; padding-right: 10px" src=".github/resources/images/features_title_light.png?raw=true#gh-dark-mode-only">
+
+- [x] APK Compilation
+
+- [x] AAB Support
+
+- [x] Java
+
+- [x] Kotlin  
+
+- [x] R8/ProGuard
+
+- [x] Code Completions (Currently for Java only)  
+
+- [x] Quick fixes (Import missing class and Implement Abstract Methods)  
+
+- [x] Layout Preview (80%)
+
+- [x] Automatic dependency resolution  
+
+- [ ] Layout Editor
+
+- [ ] Debugger
+
+- [ ] Lint 
+
+<img style=" width: 100%;" src=".github/resources/images/hr.jpg">
+
+## CodeAssist Community
+
+Discord server: https://discord.gg/pffnyE6prs
+
+
+
+English-language chat in Telegram: https://t.me/codeassist_app
+
+
+
+Russian-language (русскоязычный) chat in Telegram: https://t.me/codeassist_chat
+
+
+
+## Building - Android Studio
+
+Clone this repository to your local device and then open it on Android Studio.
+
+
+
+## Contributing
+
+- Pull request must have a short description as a title and a more detailed one in the description
+
+- Feature additions must include Unit/Instrumentation tests. This is for future stability of the app and modules.
+
+
+
+# Special thanks
+
+- Rosemoe/CodeEditor 
+
+- JavaNIDE
+
+- Mike Anderson
+
+- Java Language Server
+
+- Ilyasse Salama
+
+<img style="border-radius: 30px; width: 100%; height: 100%" src="https://krishnavyshak.github.io/info_codeassist_1.png">
