@@ -1,10 +1,7 @@
-# Mango <> Ide - README.md
-
-```markdown
-# Mango <> Ide
-
-<div align="center">
-  <img src=".github/logo.png" alt="Mango <> Ide Logo" width="200"/>
+<p align='center'>
+  <img width='1280px' height='300px' src='https://raw.githubusercontent.com/BdStudioorg/Mango-Android-IDE/refs/heads/main/logo-dark.webp#gh-dark-mode-only' >
+  <img width='1280px' height='300px' src='https://raw.githubusercontent.com/BdStudioorg/Mango-Android-IDE/refs/heads/main/logo-light.webp#gh-light-mode-only'>
+</p>
   
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
   [![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)]()
