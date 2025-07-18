@@ -1,95 +1,108 @@
-<p align='center'>
-  <img width='1280px' height='300px' src='https://raw.githubusercontent.com/BdStudioorg/Mango-Android-IDE/refs/heads/main/logo-dark.webp#gh-dark-mode-only' >
-  <img width='1280px' height='300px' src='https://raw.githubusercontent.com/BdStudioorg/Mango-Android-IDE/refs/heads/main/logo-light.webp#gh-light-mode-only'>
-</p>
+# Mango <> Ide - README.md
 
-<div align='center'>
-  <a href='https://play.google.com/store/apps/details?id=com.tyron.code&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-    <img width='170px%' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/>
-  </a>
-</div>
+```markdown
+# Mango <> Ide
 
-<div align='center'>
+<div align="center">
+  <img src=".github/logo.png" alt="Mango <> Ide Logo" width="200"/>
   
-[![stability-alpha](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#alpha)
-[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da)](https://discord.gg/pffnyE6prs)
-
-  <h2>A javac APIs-based code editor that supports building Android apps.</h2>
-
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+  [![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)]()
+  [![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/mango-ide/build.yml)]()
 </div>
 
-<img style="width: 45%; height: 100%; padding-right: 10px" src="https://raw.githubusercontent.com/KrishnaVyshak/CodeAssist/main/.github/resources/screenshot/screenshots_title_light.png#gh-light-mode-only">
-<img style="width: 45%; height: 100%; padding-right: 10px" src="https://raw.githubusercontent.com/KrishnaVyshak/CodeAssist/main/.github/resources/screenshot/screenshots_title_dark.png#gh-dark-mode-only">
+A sweet coding experience for mobile developers. Mango <> Ide is a lightweight mobile IDE designed for coding on the go.
 
-<img style="width: 25%; height: 80%; padding-right: 10px" src=".github/resources/screenshot/screenshot1.webp?raw=true"><img style="width: 25%; height: 80%" src=".github/resources/screenshot/screenshot2.webp?raw=true"><img style="width: 25%; height: 80%" src=".github/resources/screenshot/screenshot3.webp?raw=true"><img style="width: 25%; height: 80%" src=".github/resources/screenshot/screenshot4.webp?raw=true">
+## ✨ Features
 
-<img style="width: 45%; height: 100%; padding-right: 10px" src=".github/resources/images/features_title_dark.png?raw=true#gh-light-mode-only">
-<img style="width: 45%; height: 100%; padding-right: 10px" src=".github/resources/images/features_title_light.png?raw=true#gh-dark-mode-only">
-
-- [x] APK Compilation
-
-- [x] AAB Support
-
-- [x] Java
-
-- [x] Kotlin  
-
-- [x] R8/ProGuard
-
-- [x] Code Completions (Currently for Java only)  
-
-- [x] Quick fixes (Import missing class and Implement Abstract Methods)  
-
-- [x] Layout Preview (80%)
-
-- [x] Automatic dependency resolution  
-
-- [ ] Layout Editor
-
+- [x] Mobile-optimized interface
+- [x] Syntax highlighting
+- [x] Code completion
 - [ ] Debugger
+- [ ] Lint integration
+- [x] File explorer
+- [x] Git integration
+- [x] Customizable theme
 
-- [ ] Lint 
+<img style="width: 100%;" src=".github/resources/images/preview.jpg" alt="App Preview">
 
-<img style=" width: 100%;" src=".github/resources/images/hr.jpg">
+## 📦 Installation
 
-## CodeAssist Community
+### Android Studio
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/mango-ide.git
+   ```
+2. Open the project in Android Studio
+3. Build and run the app
 
-Discord server: https://discord.gg/pffnyE6prs
+### APK Download
+Download the latest APK from our [Releases page](https://github.com/yourusername/mango-ide/releases).
+
+## 🚀 Quick Start
+
+1. Open the app
+2. Create a new project or open existing files
+3. Start coding with our optimized keyboard
+
+```java
+// Sample code
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello from Mango <> Ide!");
+    }
+}
+```
+
+## 🛠 Configuration
+
+Customize your IDE in Settings:
+- Editor theme (Light/Dark/Mango)
+- Font size
+- Keyboard shortcuts
+- Auto-save preferences
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these guidelines:
+- Fork the repository
+- Create a feature branch (`git checkout -b feature/AmazingFeature`)
+- Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+- Push to the branch (`git push origin feature/AmazingFeature`)
+- Open a Pull Request
+
+### Pull Request Requirements:
+- Clear title and description
+- Include tests for new features
+- Update documentation if needed
+
+## 📚 Documentation
+
+- [API Reference](docs/API.md)
+- [User Guide](docs/USERGUIDE.md)
+- [Theme Development](docs/THEMES.md)
+
+## 🌐 Community
+
+Join our developer community:
+
+- Discord: [https://discord.gg/mangoide](https://discord.gg/mangoide)
+- Telegram (English): [https://t.me/mangoide_en](https://t.me/mangoide_en)
+- Telegram (Russian): [https://t.me/mangoide_ru](https://t.me/mangoide_ru)
+- Twitter: [@mangoide](https://twitter.com/mangoide)
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 🙏 Acknowledgments
+
+Special thanks to:
+- [Rosemoe/CodeEditor](https://github.com/Rosemoe/CodeEditor)
+- Java Language Server team
+- All our contributors
+- The open source community
+
+<img style="border-radius: 30px; width: 100%;" src=".github/resources/images/team.jpg" alt="Mango Team">
 
 
-
-English-language chat in Telegram: https://t.me/codeassist_app
-
-
-
-Russian-language (русскоязычный) chat in Telegram: https://t.me/codeassist_chat
-
-
-
-## Building - Android Studio
-
-Clone this repository to your local device and then open it on Android Studio.
-
-
-
-## Contributing
-
-- Pull request must have a short description as a title and a more detailed one in the description
-
-- Feature additions must include Unit/Instrumentation tests. This is for future stability of the app and modules.
-
-
-
-# Special thanks
-
-- Rosemoe/CodeEditor 
-
-- JavaNIDE
-
-- Mike Anderson
-
-- Java Language Server
-
-- Ilyasse Salama
-
-<img style="border-radius: 30px; width: 100%; height: 100%" src="https://krishnavyshak.github.io/info_codeassist_1.png">
