@@ -1,0 +1,269 @@
+# mango<>IDE Build System
+# ----------------------------
+# Version: 2.3.0
+# Type: Mobile Development IDE
+# Architecture: Cross-platform (Android/iOS/Windows/macOS/Linux)
+
+# Environment Detection
+ifeq ($(OS),Windows_NT)
+    DETECTED_OS := Windows
+else
+    DETECTED_OS := $(shell uname -s)
+endif
+
+# Global Configuration
+PROJECT_NAME := mango-ide
+VERSION := 2.3.0
+BUILD_NUMBER := $(shell git rev-list --count HEAD)
+GIT_HASH := $(shell git rev-parse --short HEAD)
+BUILD_TIMESTAMP := $(shell date +%Y%m%d%H%M%S)
+
+# Directory Structure
+SRC_DIR := src
+BUILD_DIR := build
+DIST_DIR := dist
+DOCS_DIR := docs
+TEST_DIR := tests
+ANDROID_DIR := android
+IOS_DIR := ios
+CONFIG_DIR := config
+ASSETS_DIR := assets
+PLUGINS_DIR := plugins
+AI_MODELS_DIR := ai_models
+
+# Toolchain Configuration
+NODE_VERSION := 18.16.0
+NPM := npm
+YARN := yarn
+RN_CLI := npx react-native
+GRADLE := ./gradlew
+POD := bundle exec pod
+GO := go
+PYTHON := python3
+DOCKER := docker
+KUBECTL := kubectl
+TSC := npx tsc
+ESLINT := npx eslint
+JEST := npx jest
+
+# Multi-platform Targets
+PLATFORMS := android ios web windows macos linux
+BUILD_TYPES := debug staging release
+
+# Feature Flags
+FEATURE_AI_ASSIST := true
+FEATURE_COLLABORATION := true
+FEATURE_REALTIME_DEBUG := true
+FEATURE_PLUGIN_SYSTEM := true
+
+# AI Model Configuration
+AI_MODEL_VERSION := tyron-2.1
+AI_MODEL_BASE_URL := https://models.mangoide.com/v2
+
+# Build Targets
+.PHONY: all clean install setup test lint build run deploy
+
+all: setup build
+
+# Environment Setup
+setup: check-env install-deps download-models configure-platforms
+
+check-env:
+    @echo "Checking development environment..."
+    @node --version | grep -q "v${NODE_VERSION}" || (echo "Node version mismatch. Required: ${NODE_VERSION}" && exit 1)
+    @echo "✓ Node.js OK"
+    @java -version 2>&1 | grep -q "1.8" || (echo "Java 8 required" && exit 1)
+    @echo "✓ Java OK"
+    @${PYTHON} --version | grep -q "Python 3" || (echo "Python 3 required" && exit 1)
+    @echo "✓ Python OK"
+    @${GO} version | grep -q "go1.20" || (echo "Go 1.20 required" && exit 1)
+    @echo "✓ Go OK"
+
+install-deps:
+    @echo "Installing dependencies..."
+    ${YARN} install
+    cd server && ${GO} mod download
+    cd ai_services && pip install -r requirements.txt
+    @echo "✓ Dependencies installed"
+
+download-models:
+ifeq ($(FEATURE_AI_ASSIST),true)
+    @echo "Downloading AI models..."
+    mkdir -p ${AI_MODELS_DIR}
+    curl -sL ${AI_MODEL_BASE_URL}/${AI_MODEL_VERSION}/tyron-code-model.bin -o ${AI_MODELS_DIR}/tyron-code-model.bin
+    curl -sL ${AI_MODEL_BASE_URL}/${AI_MODEL_VERSION}/tyron-lang-model.bin -o ${AI_MODELS_DIR}/tyron-lang-model.bin
+    @echo "✓ AI models downloaded"
+endif
+
+configure-platforms:
+    @echo "Configuring platforms..."
+    cd ${ANDROID_DIR} && ${GRADLE} wrapper
+    cd ${IOS_DIR} && ${POD} install
+    @echo "✓ Platforms configured"
+
+# Development Tasks
+run-android:
+    ${RN_CLI} run-android --variant=debug --appIdSuffix=debug
+
+run-ios:
+    ${RN_CLI} run-ios --scheme="mango-ide-debug"
+
+run-web:
+    ${YARN} start:web
+
+run-desktop:
+    ${YARN} start:desktop
+
+# Build System
+build: clean build-client build-server build-ai
+
+build-client:
+    @echo "Building client application..."
+    ${YARN} build:client
+    @echo "✓ Client built"
+
+build-server:
+    @echo "Building backend services..."
+    cd server && ${GO} build -o ../${BUILD_DIR}/server/mango-server
+    @echo "✓ Server built"
+
+build-ai:
+ifeq ($(FEATURE_AI_ASSIST),true)
+    @echo "Building AI services..."
+    cd ai_services && ${PYTHON} setup.py build_ext --inplace
+    cp ai_services/*.so ${BUILD_DIR}/ai/
+    @echo "✓ AI services built"
+endif
+
+build-android:
+    @echo "Building Android package..."
+    cd ${ANDROID_DIR} && ${GRADLE} assembleRelease
+    cp ${ANDROID_DIR}/app/build/outputs/apk/release/*.apk ${DIST_DIR}/android/
+    @echo "✓ Android build complete"
+
+build-ios:
+    @echo "Building iOS package..."
+    xcodebuild -workspace ${IOS_DIR}/mango-ide.xcworkspace -scheme mango-ide -configuration Release -archivePath ${BUILD_DIR}/ios/mango-ide.xcarchive archive
+    xcodebuild -exportArchive -archivePath ${BUILD_DIR}/ios/mango-ide.xcarchive -exportOptionsPlist ${CONFIG_DIR}/ios/exportOptions.plist -exportPath ${DIST_DIR}/ios
+    @echo "✓ iOS build complete"
+
+# Testing
+test: test-unit test-integration test-e2e
+
+test-unit:
+    ${JEST} --config jest.unit.config.js
+
+test-integration:
+    ${JEST} --config jest.integration.config.js
+
+test-e2e:
+    ${YARN} test:e2e
+
+# Quality Assurance
+lint:
+    ${ESLINT} ${SRC_DIR} --ext .js,.jsx,.ts,.tsx
+    ${TSC} --noEmit
+    cd server && ${GO} vet ./...
+    cd server && ${GO} fmt ./...
+
+audit:
+    ${YARN} audit
+    ${GO} list -json -m all | nancy sleuth
+
+# Deployment
+deploy: build dockerize push deploy-k8s
+
+dockerize:
+    ${DOCKER} build -t mangoide/core:${VERSION} -f docker/Dockerfile.core .
+    ${DOCKER} build -t mangoide/server:${VERSION} -f docker/Dockerfile.server .
+ifeq ($(FEATURE_AI_ASSIST),true)
+    ${DOCKER} build -t mangoide/ai:${VERSION} -f docker/Dockerfile.ai .
+endif
+
+push:
+    ${DOCKER} push mangoide/core:${VERSION}
+    ${DOCKER} push mangoide/server:${VERSION}
+ifeq ($(FEATURE_AI_ASSIST),true)
+    ${DOCKER} push mangoide/ai:${VERSION}
+endif
+
+deploy-k8s:
+    ${KUBECTL} apply -f k8s/namespace.yaml
+    ${KUBECTL} apply -f k8s/configs/
+    ${KUBECTL} apply -f k8s/secrets/
+    ${KUBECTL} apply -f k8s/services/
+    ${KUBECTL} apply -f k8s/deployments/
+    ${KUBECTL} apply -f k8s/ingress/
+
+# Utility Targets
+clean:
+    @echo "Cleaning build artifacts..."
+    rm -rf ${BUILD_DIR}
+    rm -rf ${DIST_DIR}
+    ${YARN} cache clean
+    cd ${ANDROID_DIR} && ${GRADLE} clean
+    cd ${IOS_DIR} && xcodebuild clean
+    @echo "✓ Clean complete"
+
+generate-docs:
+    @echo "Generating documentation..."
+    ${YARN} docs
+    cd server && ${GO} run golang.org/x/tools/cmd/godoc -http=:6060
+    @echo "✓ Documentation generated"
+
+bundle-assets:
+    @echo "Bundling assets..."
+    ${RN_CLI} bundle --platform android --dev false --entry-file index.js --bundle-output ${ANDROID_DIR}/app/src/main/assets/index.android.bundle --assets-dest ${ANDROID_DIR}/app/src/main/res/
+    ${RN_CLI} bundle --platform ios --dev false --entry-file index.js --bundle-output ${IOS_DIR}/main.jsbundle --assets-dest ${IOS_DIR}
+    @echo "✓ Assets bundled"
+
+version:
+    @echo "mango<>IDE ${VERSION} (Build ${BUILD_NUMBER}-${GIT_HASH})"
+    @echo "Built on ${BUILD_TIMESTAMP}"
+
+# Platform-Specific Targets
+define platform_template
+build-$(1): clean
+    @echo "Building for $(1)..."
+    ${YARN} build:$(1)
+    @echo "✓ $(1) build complete"
+
+run-$(1):
+    ${YARN} start:$(1)
+endef
+
+$(foreach platform,$(PLATFORMS),$(eval $(call platform_template,$(platform))))
+
+# Build Type Targets
+define build_type_template
+build-$(1): clean
+    @echo "Building $(1) version..."
+    ${YARN} build:$(1)
+    @echo "✓ $(1) build complete"
+endef
+
+$(foreach build_type,$(BUILD_TYPES),$(eval $(call build_type_template,$(build_type))))
+
+# Help System
+help:
+    @echo "mango<>IDE Build System"
+    @echo "Usage: make [target]"
+    @echo ""
+    @echo "Core Targets:"
+    @echo "  all             Setup and build everything"
+    @echo "  setup           Configure development environment"
+    @echo "  build           Build all components"
+    @echo "  clean           Remove all build artifacts"
+    @echo "  test            Run all tests"
+    @echo "  lint            Run static analysis"
+    @echo "  deploy          Build and deploy to production"
+    @echo ""
+    @echo "Platform Targets:"
+    @echo "  build-android   Build Android package"
+    @echo "  build-ios       Build iOS package"
+    @echo "  run-android     Run Android debug version"
+    @echo "  run-ios         Run iOS debug version"
+    @echo ""
+    @echo "Utility Targets:"
+    @echo "  version         Show build version info"
+    @echo "  help            Show this help message"
