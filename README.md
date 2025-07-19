@@ -3,7 +3,7 @@
   <img width='1280px' height='300px' src='https://raw.githubusercontent.com/BdStudioorg/Mango-Android-IDE/refs/heads/main/logo-light.webp#gh-light-mode-only'>
 </p>
   
-[License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+(https://img.shields.io/badge/license-MIT-blue.svg)
   [![Version](https://img.shields.io/badge/version-1.0.0-orange.svg)]()
   [![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/mango-ide/build.yml)]()
 </div>
